@@ -5,19 +5,15 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import { useState } from 'react';
 import '../App.css';
@@ -52,35 +48,34 @@ function SimpleCard(props) {
     const { classes } = props;
 
     const [descricao, setDescricao] = useState('');
-    const [alternativa, setAlternativa] = useState('');
-    const [descricaoAlternativa, setDescricaoAlternativa] = useState('');
-    const [questonario, setQuestonario] = useState('');
+    const [checked, setChecked] = useState([0]);
 
     const handleChangeDescricao = event => {
         setDescricao(event.target.value);
-    };
-
-    const handleChangeAlternativa = event => {
-        setAlternativa(event.target.value);
-    };
-
-    const handleChangeDescricaoAlternativa = event => {
-        setDescricaoAlternativa(event.target.value);
-    };
-
-    const handleChangeQuestonario = event => {
-        setQuestonario(event.target.checked);
     };
 
     const handleClickSalvar = () => {
 
     };
 
+    const handleToggle = value => () => {
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+    
+        if (currentIndex === -1) {
+          newChecked.push(value);
+        } else {
+          newChecked.splice(currentIndex, 1);
+        }
+    
+        setChecked(newChecked);
+    };
+
     return (
         <div className="Card">
             <div className={classes.card}>
                 <Card>
-                    <CardHeader title="Cadastrar Questão" />
+                    <CardHeader title="Realizar Questonario" />
                     <CardContent>
                         <div className={classes.cardf}>
                             <TextField
@@ -130,38 +125,6 @@ function SimpleCard(props) {
                                 </ListItem>
                             </List>
                         </div>
-                        <div className={classes.cardf}>
-                            <FormControl fullWidth>
-                                <InputLabel htmlFor="alternativa">
-                                    Alternativas Certas
-                                </InputLabel>
-                                <Input id="alternativa" onChange={handleChangeAlternativa} />
-                            </FormControl>
-                        </div>
-                        <div className={classes.cardf}>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={questonario}
-                                        onChange={handleChangeQuestonario}
-                                        value="questonario"
-                                        color="primary"
-                                    />
-                                }
-                                label="Questonario"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={questonario}
-                                        onChange={handleChangeQuestonario}
-                                        value="questonario"
-                                        color="primary"
-                                    />
-                                }
-                                label="Atividade"
-                            />
-                        </div>
                     </CardContent>
                     <CardActions>
                         <div className={classes.button}>
@@ -174,33 +137,27 @@ function SimpleCard(props) {
             </div>
             <div className={classes.card}>
                 <Card>
-                    <CardHeader title="Cadastrar Alternativa" />
+                    <CardHeader title="Questões" />
                     <CardContent>
                         <div className={classes.cardf}>
-                            <FormControl fullWidth>
-                                <InputLabel htmlFor="alternativa">
-                                    Alternativa
-                                </InputLabel>
-                                <Input id="alternativa" onChange={handleChangeAlternativa} />
-                            </FormControl>
-                        </div>
-                        <div className={classes.cardf}>
-                            <TextField
-                                id="standard-multiline-flexible"
-                                label="Descrição Alternativa"
-                                multiline
-                                rowsMax="5"
-                                value={descricaoAlternativa}
-                                onChange={handleChangeDescricaoAlternativa}
-                                className={classes.textField}
-                                margin="normal"
-                            />
+                            <List className={classes.root}>
+                                {[0, 1, 2, 3].map(value => (
+                                    <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
+                                        <Checkbox
+                                            checked={checked.indexOf(value) !== -1}
+                                            tabIndex={-1}
+                                            disableRipple
+                                        />
+                                        <ListItemText primary={`Line item ${value + 1}`} />
+                                    </ListItem>
+                                ))}
+                            </List>
                         </div>
                     </CardContent>
                     <CardActions>
                         <div className={classes.button}>
                             <Button variant="contained" color="primary" onClick={handleClickSalvar}>
-                                Salvar
+                                Adicionar ao Questonario
                             </Button>
                         </div>
                     </CardActions>
