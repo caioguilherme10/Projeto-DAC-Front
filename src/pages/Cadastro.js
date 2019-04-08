@@ -66,7 +66,7 @@ function SimpleCard(props) {
                     <FormControl fullWidth>
                         <InputLabel htmlFor="matricula">
                             Matricula
-                    </InputLabel>
+                        </InputLabel>
                         <Input id="matricula" onChange={handleChangeMatricula} />
                     </FormControl>
                 </div>
@@ -74,7 +74,7 @@ function SimpleCard(props) {
                     <FormControl fullWidth>
                         <InputLabel htmlFor="nome">
                             Nome
-                    </InputLabel>
+                        </InputLabel>
                         <Input id="nome" onChange={handleChangeNome} />
                     </FormControl>
                 </div>
@@ -82,7 +82,7 @@ function SimpleCard(props) {
                     <FormControl fullWidth>
                         <InputLabel htmlFor="email">
                             Email
-                    </InputLabel>
+                        </InputLabel>
                         <Input id="email" onChange={handleChangeEmail} />
                     </FormControl>
                 </div>

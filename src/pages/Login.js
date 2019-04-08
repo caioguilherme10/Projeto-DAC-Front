@@ -56,7 +56,7 @@ function SimpleCard(props) {
                     <FormControl fullWidth>
                         <InputLabel htmlFor="email">
                             Email
-                    </InputLabel>
+                        </InputLabel>
                         <Input id="email" onChange={handleChangeEmail} />
                     </FormControl>
                 </div>
